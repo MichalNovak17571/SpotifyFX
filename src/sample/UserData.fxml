@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#goMaybeBack" onKeyReleased="#released" prefHeight="700.0" prefWidth="394.0" style="-fx-background-color: #0E0E0E;" xmlns="http://javafx.com/javafx/10.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.UserDataController">
+   <children>
+      <StackPane layoutX="80.0" layoutY="30.0" prefHeight="45.0" prefWidth="233.0">
+         <children>
+            <Label fx:id="username" alignment="CENTER" onMouseClicked="#goHome" onMouseEntered="#onName" onMouseExited="#offName" text="ErrGettingName" textFill="WHITE" underline="true">
+               <font>
+                  <Font name="System Bold" size="28.0" />
+               </font>
+            </Label>
+         </children>
+      </StackPane>
+      <ImageView fx:id="log_out_btn" fitHeight="50.0" fitWidth="200.0" layoutX="30.0" layoutY="30.0" onMouseEntered="#backBtnOn" onMouseExited="#backBtnOff" onMousePressed="#logOut" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../pictures/exit_dark.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="close_btn" fitHeight="50.0" fitWidth="200.0" layoutX="313.0" layoutY="30.0" onMouseEntered="#onCloseBtn" onMouseExited="#offCloseBtn" onMousePressed="#close" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../pictures/close_dark.png" />
+         </image>
+      </ImageView>
+      <VBox alignment="CENTER" layoutY="130.0" maxWidth="394.0" prefWidth="394.0" spacing="15.0">
+         <children>
+            <AnchorPane prefWidth="394.0">
+               <children>
+                  <VBox layoutX="200.0">
+                     <children>
+                        <Label fx:id="name_info" text="username" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="16.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="birth_info" text="birthdate" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="16.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="reg_info" text="registration date" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="16.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </VBox>
+                  <VBox layoutX="30.0">
+                     <children>
+                        <Label text="Username:" textFill="#bbbbbb">
+                           <font>
+                              <Font name="System Bold" size="16.0" />
+                           </font>
+                        </Label>
+                        <Label text="Birthdate:" textFill="#bbbbbb">
+                           <font>
+                              <Font name="System Bold" size="16.0" />
+                           </font>
+                        </Label>
+                        <Label text="Registration date:" textFill="#bbbbbb">
+                           <font>
+                              <Font name="System Bold" size="16.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </VBox>
+               </children>
+            </AnchorPane>
+            <Separator maxWidth="-Infinity" prefWidth="350.0" />
+            <AnchorPane prefWidth="394.0">
+               <children>
+                  <Label layoutX="30.0" text="Change username:" textFill="#bbbbbb">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                  </Label>
+                  <Button fx:id="username_btn" layoutX="242.0" layoutY="25.0" mnemonicParsing="false" onAction="#changeUsername" onMouseEntered="#onUsernameBtn" onMouseExited="#offUsernameBtn" style="-fx-background-color: #1cb953; -fx-background-radius: 15 15 15 15; -fx-border-radius: 15 15 15 15;" text="Change username" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Button>
+                  <TextField fx:id="username_field" layoutX="30.0" layoutY="25.0" onKeyPressed="#keyPressed" onMouseEntered="#onUsername" onMouseExited="#offUsername" prefHeight="25.0" prefWidth="200.0" promptText="New username" style="-fx-background-color: #444444; -fx-text-fill: white;">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </TextField>
+               </children>
+            </AnchorPane>
+            <AnchorPane prefWidth="394.0">
+               <children>
+                  <Label layoutX="30.0" text="Change password:" textFill="#bbbbbb">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                  </Label>
+                  <Button fx:id="password_btn" layoutX="244.0" layoutY="66.0" mnemonicParsing="false" onAction="#changePassword" onMouseEntered="#onPasswordBtn" onMouseExited="#offPasswordBtn" style="-fx-background-color: #1cb953; -fx-background-radius: 15 15 15 15; -fx-border-radius: 15 15 15 15;" text="Change password" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Button>
+                  <PasswordField fx:id="password_field" layoutX="30.0" layoutY="25.0" onKeyPressed="#otherKeyPressed" onMouseEntered="#onPassword" onMouseExited="#offPassword" prefHeight="25.0" prefWidth="200.0" promptText="New password" style="-fx-background-color: #444444; -fx-text-fill: white;">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </PasswordField>
+                  <PasswordField fx:id="rep_password_field" layoutX="30.0" layoutY="65.0" onKeyPressed="#nextKeyPressed" onMouseEntered="#onNewPassword" onMouseExited="#offNewPassword" prefHeight="25.0" prefWidth="200.0" promptText="Repeat new password" style="-fx-background-color: #444444; -fx-text-fill: white;">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </PasswordField>
+               </children>
+            </AnchorPane>
+            <Separator layoutX="32.0" layoutY="101.0" maxWidth="-Infinity" prefWidth="350.0" />
+            <AnchorPane>
+               <children>
+                  <Button fx:id="delete_btn" alignment="CENTER" layoutX="72.0" mnemonicParsing="false" onAction="#deleteAcc" onMouseEntered="#onDeleteBtn" onMouseExited="#offDeleteBtn" prefWidth="250.0" style="-fx-background-color: red; -fx-background-radius: 30 30 30 30; -fx-border-radius: 30 30 30 30;" text="DELETE ACCOUNT" textFill="WHITE" underline="true">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Button>
+                  <RadioButton fx:id="radio_btn" disable="true" layoutX="47.0" layoutY="13.0" mnemonicParsing="false" text="Yes, I am sure" textFill="WHITE" visible="false">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </RadioButton>
+                  <Button fx:id="rly_delete" alignment="CENTER" disable="true" layoutX="186.0" layoutY="9.0" mnemonicParsing="false" onAction="#perDelete" onMouseEntered="#onRlyDelete" onMouseExited="#offRlyDelete" style="-fx-background-color: red; -fx-background-radius: 15 15 15 15;" text="Permanently delete account" textFill="WHITE" visible="false">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Button>
+               </children>
+            </AnchorPane>
+            <Label fx:id="error_field" opacity="0.8" style="-fx-background-radius: 5 5 5 5; -fx-border-radius: 5 5 5 5; -fx-label-padding: 3; -fx-background-color: #ff0000;" text="Label" textFill="WHITE" visible="false">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+            <ImageView fx:id="delete" fitHeight="173.0" fitWidth="140.0" pickOnBounds="true" preserveRatio="true" visible="false">
+               <image>
+                  <Image url="@../pictures/funny.png" />
+               </image>
+            </ImageView>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>
