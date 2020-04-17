@@ -12,6 +12,9 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class HomeController implements Initializable {
@@ -19,10 +22,11 @@ public class HomeController implements Initializable {
     private ImageView log_out_btn, close_btn, home_button, search_button, library_button;
     @FXML
     private Label username;
+    private String usernameText = LoginController.getUsername();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        username.setText(LoginController.getUsername());
+        username.setText(usernameText);
     }
 
     @FXML
@@ -54,6 +58,14 @@ public class HomeController implements Initializable {
 
     @FXML
     private void logOut () throws IOException {
+        try {
+            DBConnection cn = DBConnection.getInstance();
+            Connection conn = cn.getConnection();
+            PreparedStatement post = conn.prepareStatement("INSERT INTO users_activity(username, state) VALUES('" + usernameText + "', 'Log out');");
+            post.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         Parent changeScene = FXMLLoader.load(getClass().getResource("Login.fxml"));
         Scene newScene = new Scene(changeScene);
         Stage stage = (Stage) log_out_btn.getScene().getWindow();
@@ -63,6 +75,14 @@ public class HomeController implements Initializable {
 
     @FXML
     private void close(){
+        try {
+            DBConnection cn = DBConnection.getInstance();
+            Connection conn = cn.getConnection();
+            PreparedStatement post = conn.prepareStatement("INSERT INTO users_activity(username, state) VALUES('" + usernameText + "', 'Log out');");
+            post.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         Stage stage = (Stage) close_btn.getScene().getWindow();
         stage.close();
     }

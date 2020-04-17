@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hostiteľ: 127.0.0.1:3308
--- Čas generovania: Št 26.Mar 2020, 08:42
+-- Čas generovania: Pi 17.Apr 2020, 21:06
 -- Verzia serveru: 8.0.18
 -- Verzia PHP: 7.3.12
 
@@ -45,7 +45,7 @@ CREATE TABLE IF NOT EXISTS `accounts` (
 INSERT INTO `accounts` (`id`, `username`, `password`, `birthdate`, `timestamp`) VALUES
 (19, 'Teodor Navrátil', '$2a$12$oqx/eH4FGYgicHgU5p.TuOi1fVkuy2G2ALXiOYgiyyGQF7tJEdnR2', '17. 10. 1986', '2020-03-25 17:53:21'),
 (22, 'MPaulíková', '$2a$12$OAFwI6jXO1YrPWjF0dqM1.cR/ErCYzumQV9EDin3JqjPGyDfQ34nO', '18. 6. 1815', '2020-03-25 19:12:23'),
-(8, 'MichalN', '$2a$12$ZY1f2AsbBGaixA/6/k87Ledcrh6THPqNHdsLuoiaU.nya6eDLGdSu', '13. 3. 2002', '2020-03-09 19:55:59'),
+(8, 'MichalN', '$2a$12$I/BtTruWRWhE.IArKvuuiuN14Qg6Eb5SLu6egfnUC3KyVKSho79te', '13. 3. 2002', '2020-03-09 19:55:59'),
 (21, 'MartaRaisova', '$2a$12$Pye1/6aqyFC3xIZbKsH/beGEUlmdpzbIcS7n7Vsh/HHEasOfIfOAu', '29. 8. 1526', '2020-03-25 18:38:32');
 
 -- --------------------------------------------------------
@@ -172,6 +172,43 @@ INSERT INTO `songs` (`id`, `name`, `song`, `id_user`) VALUES
 (83, 'Mafia Corner', 'Zuzulienka', 22),
 (84, 'Mafia Corner & Stefi', 'A ja taka Dzivočka', 22),
 (85, 'KOLLÁROVCI', 'Ide furman dolinou', 22);
+
+-- --------------------------------------------------------
+
+--
+-- Štruktúra tabuľky pre tabuľku `users_activity`
+--
+
+DROP TABLE IF EXISTS `users_activity`;
+CREATE TABLE IF NOT EXISTS `users_activity` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `username` varchar(30) NOT NULL,
+  `state` varchar(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=81 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Sťahujem dáta pre tabuľku `users_activity`
+--
+
+INSERT INTO `users_activity` (`id`, `username`, `state`, `timestamp`) VALUES
+(80, 'Teodor navratil', 'Log out', '2020-04-17 20:54:37'),
+(79, 'Teodor navratil', 'Log in', '2020-04-17 20:51:30'),
+(78, 'MPaulíková', 'Log out', '2020-04-17 20:50:55'),
+(77, 'MPaulíková', 'Log in', '2020-04-17 20:46:12'),
+(76, 'MartaRaisova', 'Log out', '2020-04-17 20:45:16'),
+(75, 'MartaRaisova', 'Log in', '2020-04-17 20:40:28'),
+(74, 'MPaulikova', 'Log out', '2020-04-17 20:39:47'),
+(73, 'MPaulikova', 'Log in', '2020-04-17 20:36:54'),
+(72, 'MartaRaisova', 'Log out', '2020-04-17 20:35:31'),
+(71, 'MartaRaisova', 'Log in', '2020-04-17 20:32:01'),
+(70, 'Teodor Navratil', 'Log out', '2020-04-17 20:31:46'),
+(69, 'Teodor Navratil', 'Log in', '2020-04-17 20:29:18'),
+(68, 'MichalN', 'Log out', '2020-04-17 20:28:49'),
+(67, 'MichalN', 'Log in', '2020-04-17 20:27:41'),
+(66, 'MichalN', 'Log out', '2020-04-17 20:27:26'),
+(65, 'MichalN', 'Log in', '2020-04-17 20:24:45');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

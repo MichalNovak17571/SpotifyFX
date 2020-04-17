@@ -1,6 +1,8 @@
 package sample;
 
 import BCrypt.BCrypt;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -8,6 +10,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.effect.Glow;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
@@ -26,7 +29,7 @@ public class UserDataController implements Initializable {
     @FXML
     private Label username, name_info, birth_info, reg_info ,error_field;
     @FXML
-    private ImageView log_out_btn, close_btn, delete;
+    private ImageView log_out_btn, close_btn;
     @FXML
     private Button delete_btn, username_btn, password_btn, rly_delete;
     @FXML
@@ -35,10 +38,16 @@ public class UserDataController implements Initializable {
     private PasswordField password_field, rep_password_field;
     @FXML
     private RadioButton radio_btn;
+    @FXML
+    private TableView activity_table;
+    @FXML
+    private TableColumn column_activity, column_timestamp;
 
     private String usernameName, birthDate, registrationDate, newUsername, newPassword, repNewPassword;
     private int cislo;
-    private boolean badPass = false, badUsername = false, var = false;
+    private boolean badPass = false, badUsername = false;
+
+    ObservableList<CreateActivityTable> obList = FXCollections.observableArrayList();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -61,27 +70,22 @@ public class UserDataController implements Initializable {
         name_info.setText(usernameName);
         birth_info.setText(birthDate);
         reg_info.setText(registrationDate);
+        activity_table.setItems(loadTable());
     }
 
     @FXML
     private void deleteAcc(){
-        if(var) {
-            delete.setVisible(true);
-        }else{
-            delete.setVisible(false);
             delete_btn.setVisible(false);
             delete_btn.setDisable(true);
             radio_btn.setVisible(true);
             radio_btn.setDisable(false);
             rly_delete.setVisible(true);
             rly_delete.setDisable(false);
-        }
     }
 
     @FXML
     private void perDelete() throws IOException {
         if(radio_btn.isSelected()){
-            delete.setVisible(false);
             delete_btn.setVisible(true);
             delete_btn.setDisable(false);
             radio_btn.setVisible(false);
@@ -217,6 +221,14 @@ public class UserDataController implements Initializable {
 
     @FXML
     private void logOut () throws IOException {
+        try {
+            DBConnection cn = DBConnection.getInstance();
+            Connection conn = cn.getConnection();
+            PreparedStatement post = conn.prepareStatement("INSERT INTO users_activity(username, state) VALUES('" + usernameName + "', 'Log out');");
+            post.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         Parent changeScene = FXMLLoader.load(getClass().getResource("Login.fxml"));
         Scene newScene = new Scene(changeScene);
         Stage stage = (Stage) log_out_btn.getScene().getWindow();
@@ -226,6 +238,14 @@ public class UserDataController implements Initializable {
 
     @FXML
     private void close(){
+        try {
+            DBConnection cn = DBConnection.getInstance();
+            Connection conn = cn.getConnection();
+            PreparedStatement post = conn.prepareStatement("INSERT INTO users_activity(username, state) VALUES('" + usernameName + "', 'Log out');");
+            post.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         Stage stage = (Stage) close_btn.getScene().getWindow();
         stage.close();
     }
@@ -400,17 +420,23 @@ public class UserDataController implements Initializable {
             Stage stage = (Stage) ((Node)keyEvent.getSource()).getScene().getWindow();
             stage.setScene(newScene);
             stage.show();
-        }else if(keyEvent.getCode() == KeyCode.J){
-            var = true;
         }
     }
 
-    @FXML
-    private void released(KeyEvent keyEvent){
-        if(keyEvent.getCode() == KeyCode.J){
-            var = false;
-            delete.setVisible(false);
+    private ObservableList loadTable (){
+        try {
+            DBConnection cn = DBConnection.getInstance();
+            Connection conn = cn.getConnection();
+            ResultSet rs = conn.createStatement().executeQuery("SELECT * FROM users_activity WHERE username LIKE '" + usernameName + "';");
+            while(rs.next()){
+                obList.add(new CreateActivityTable(rs.getInt("id"), rs.getString("username"), rs.getString("state"), rs.getString("timestamp")));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
+        column_activity.setCellValueFactory(new PropertyValueFactory<>("state"));
+        column_timestamp.setCellValueFactory(new PropertyValueFactory<>("timestamp"));
+        return obList;
     }
 
 }

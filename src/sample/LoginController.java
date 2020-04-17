@@ -18,6 +18,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -67,6 +68,14 @@ public class LoginController {
                 e.printStackTrace();
             }
             if(BCrypt.checkpw(password, ziskaneHeslo)) {
+                try {
+                    DBConnection cn = DBConnection.getInstance();
+                    Connection conn = cn.getConnection();
+                    PreparedStatement post = conn.prepareStatement("INSERT INTO users_activity(username, state) VALUES('" + username + "', 'Log in');");
+                    post.executeUpdate();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
                 Parent changeScene = FXMLLoader.load(getClass().getResource("Home.fxml"));
                 Scene newScene = new Scene(changeScene);
                 Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();

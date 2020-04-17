@@ -112,6 +112,14 @@ public class LibraryController implements Initializable {
 
     @FXML
     private void logOut () throws IOException {
+        try {
+            DBConnection cn = DBConnection.getInstance();
+            Connection conn = cn.getConnection();
+            PreparedStatement post = conn.prepareStatement("INSERT INTO users_activity(username, state) VALUES('" + usernameName + "', 'Log out');");
+            post.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         Parent changeScene = FXMLLoader.load(getClass().getResource("Login.fxml"));
         Scene newScene = new Scene(changeScene);
         Stage stage = (Stage) log_out_btn.getScene().getWindow();
@@ -121,6 +129,14 @@ public class LibraryController implements Initializable {
 
     @FXML
     private void close(){
+        try {
+            DBConnection cn = DBConnection.getInstance();
+            Connection conn = cn.getConnection();
+            PreparedStatement post = conn.prepareStatement("INSERT INTO users_activity(username, state) VALUES('" + usernameName + "', 'Log out');");
+            post.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         Stage stage = (Stage) close_btn.getScene().getWindow();
         stage.close();
     }

@@ -5,6 +5,8 @@
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -13,7 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#goMaybeBack" onKeyReleased="#released" prefHeight="700.0" prefWidth="394.0" style="-fx-background-color: #0E0E0E;" xmlns="http://javafx.com/javafx/10.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.UserDataController">
+<AnchorPane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#goMaybeBack" prefHeight="700.0" prefWidth="394.0" style="-fx-background-color: #0E0E0E;" xmlns="http://javafx.com/javafx/10.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.UserDataController">
    <children>
       <StackPane layoutX="80.0" layoutY="30.0" prefHeight="45.0" prefWidth="233.0">
          <children>
@@ -123,6 +125,13 @@
                </children>
             </AnchorPane>
             <Separator layoutX="32.0" layoutY="101.0" maxWidth="-Infinity" prefWidth="350.0" />
+            <TableView fx:id="activity_table" maxWidth="344.0" prefHeight="140.0" prefWidth="344.0">
+              <columns>
+                <TableColumn fx:id="column_activity" prefWidth="130.0" text="Activity" />
+                <TableColumn fx:id="column_timestamp" prefWidth="212.0" text="Date and time" />
+              </columns>
+            </TableView>
+            <Separator maxWidth="-Infinity" prefWidth="350.0" />
             <AnchorPane>
                <children>
                   <Button fx:id="delete_btn" alignment="CENTER" layoutX="72.0" mnemonicParsing="false" onAction="#deleteAcc" onMouseEntered="#onDeleteBtn" onMouseExited="#offDeleteBtn" prefWidth="250.0" style="-fx-background-color: red; -fx-background-radius: 30 30 30 30; -fx-border-radius: 30 30 30 30;" text="DELETE ACCOUNT" textFill="WHITE" underline="true">
@@ -147,11 +156,6 @@
                   <Font name="System Bold" size="14.0" />
                </font>
             </Label>
-            <ImageView fx:id="delete" fitHeight="173.0" fitWidth="140.0" pickOnBounds="true" preserveRatio="true" visible="false">
-               <image>
-                  <Image url="@../pictures/funny.png" />
-               </image>
-            </ImageView>
          </children>
       </VBox>
    </children>
